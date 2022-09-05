@@ -49,7 +49,6 @@ jobs:
       - name: Finish CI
         run:  echo "Pipeline CI finish sucsessfully!"
         
-jobs:
   
   cd-part:
   
