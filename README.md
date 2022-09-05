@@ -6,4 +6,4 @@
 #########################################################
 
 Status of the last deployment:<br>
-<img src="https://github.com/Genrih17/Flask_AWS/actions/workflows/CICD-AWS-Beanstalk/badge.svg?branch=master"><br>
+<img src="https://github.com/Genrih17/Flask_AWS/.github/workflows/CICD-AWS-Beanstalk/badge.svg?branch=master"><br>
