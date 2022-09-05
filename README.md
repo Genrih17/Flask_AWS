@@ -5,5 +5,5 @@
 # v1.0.0
 #########################################################
 
-Status of the last deployment:
+Status of the last deployment:<br>
 <img src="https://github.com/Genrih17/Flask_AWS/workflows/CI/CD-AWS-Beanstalk/badge.svg?branch=master"><br>
