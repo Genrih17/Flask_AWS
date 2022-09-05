@@ -30,8 +30,21 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: "Git clone action"
+      - name: Git clone action
         uses: actions/checkout@v3
         
-      - name: "Create zip package"
+      - name: Create zip package
         run: zip -r ${{ env.DEPLOY_PACKAGE_NAME }} ./ -x *.git*
+
+      - name: Confiure AWS Cred
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          aws-access-key-id    : ${{ secrets.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+          aws-region           : ${{ env.AWS_REGION_NAME }}
+          
+      - name: Copy deploy package to S3
+        run:  aws s3 cp ${{ env.DEPLOY_PACKAGE_NAME }} s3://${{ env.BUCKET_NAME }}/
+        
+      - name: Finish
+        run:  echo "Pipeline CI finish sucsessfully!"
