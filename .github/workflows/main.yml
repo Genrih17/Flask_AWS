@@ -46,5 +46,36 @@ jobs:
       - name: Copy deploy package to S3
         run:  aws s3 cp ${{ env.DEPLOY_PACKAGE_NAME }} s3://${{ env.BUCKET_NAME }}/
         
-      - name: Finish
+      - name: Finish CI
         run:  echo "Pipeline CI finish sucsessfully!"
+        
+jobs:
+  
+  cd-part:
+  
+    runs-on: ubuntu-latest
+    needs: [ci-part]
+    
+    steps:
+      - name: Confiure AWS Cred
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id    : ${{ secrets.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+          aws-region           : ${{ env.AWS_REGION_NAME }}
+          
+      - name: Create new ElasticBeanstalk App version
+        run: |
+          aws elasticbeanstalk create-application-version \
+          --application-name ${{ env.APP_NAME }} \
+          --source-bundle S3Bucket="${{ env.BUCKET_NAME }}",S3Key="${{ env.DEPLOY_PACKAGE_NAME }}" \
+          --version-lable "Ver-${{ github.sha }}" \
+          --description "CommitSHA-${{ github.sha }}"
+          
+      - name: Deploy new ElasticBeanstalk App version
+        run: aws elasticbeanstalk update-enviroment \
+             --enviroment-name ${{ env.ENV_NAME }} \
+             --version-label "Ver-${{ github.sha }}"
+             
+      - name: Finish CD
+        run:  echo "Pipeline CD finish sucsessfully!"
