@@ -6,7 +6,7 @@ env:
   APP_NAME     : "Flask"
   ENV_NAME     : "Flask-env"
   DEPLOY_PACKAGE_NAME : "flask_app_${{ github.sha }}.zip"
-  AWS_REGION_NAME     : "eu-central-1"
+  AWS_REGION_NAME     : "eu-west-1"
   
   
 # Controls when the workflow will run
