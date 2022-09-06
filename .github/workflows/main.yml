@@ -4,7 +4,7 @@ name: CICD-AWS-Beanstalk
 env:
   BUCKET_NAME  : "henadzi-flask-bucket"
   APP_NAME     : "Flask"
-  ENV_NAME     : "Flask-env"
+  ENV_NAME     : "Flask-env-2"
   DEPLOY_PACKAGE_NAME : "flask_app_${{ github.sha }}.zip"
   AWS_REGION_NAME     : "eu-west-1"
   
